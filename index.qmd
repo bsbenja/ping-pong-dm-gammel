@@ -1,0 +1,72 @@
+```{r}
+source(file = "input-dm-ping-pong.R", local = knitr::knit_global())
+```
+
+---
+title: "<iconify-icon icon=mdi:home></iconify-icon> <u>Forside</u>"
+subtitle: "<i style=font-size:80%>Velkommen til den officielle hjemmeside for Danske Mesterskaber i Ping Pong. Ping Pong er bordtennis på <b><u>lige vilkår</u></b> med sandpapirsbat, som er <b><u>åben for ALLE</u></b> til en <b><u>overkommelig pris</u></b>. Se mere ved at navigere rundt her på hjemmesiden. Fra mobil gøres dette via topmenuen.</i>"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| output: asis
+cat(tbl0_status$k_cta_plakat)
+```
+
+::: callout-tip
+## Sider
+
+::: grid
+::: {.g-col-12 .g-col-md-4}
+#### **`r tbl0_unik$k_event_ping_pong_år`**
+
+`r tbl0_status$k_forside_dm`
+:::
+
+::: {.g-col-12 .g-col-md-4}
+#### `r "<b>Generelt om Ping Pong</b>"`
+
+-   `r paste(var_ikon$k_regler, "[<b>Ping Pong regler</b>](regler.qmd)<br><i>I Ping Pong tages det bedste fra fortidens- og nutidens bordtennis og kan sammenlignes med ordsproget <q>gammel vin på nye flasker</q>. Der er nogle få regler, der adskiller Ping Pong fra bordtennis, bl.a. spilles der til 15 point (14-14 er afgørende bold), alle spiller på lige vilkår med sandpapirsbat, hvor der byttes bat mellem hvert sæt, og der kan tages <q>dobbeltpoint</q>.</i>")`
+
+-   `r paste(var_ikon$k_wcpp, "[<b>WCPP</b>](wcpp.qmd)<br><i>World Championship of Ping Pong (WCPP) afholdes sædvanligvis i London med en præmiesum på $100.000 og eksponeres på bl.a. Viaplay Sport og Sky Sports.</i>")`
+
+-   `r paste(var_ikon$k_koncept, "[<b>DM-koncept</b>](koncept.qmd)<br><i>DM-konceptet er en heldagsbegivenhed, der hylder fællesskabet og mangfoldigheden, hvor ALLE har mulighed for at deltage på lige vilkår i sandpapirsdisciplinen. Der er musik under hele turneringen samt socialt arrangement om aften/natten.</i>")`
+:::
+
+::: {.g-col-12 .g-col-md-4}
+#### `r "<b>Eksterne links</b>"`
+
+`r "<i>Er du en Ping Pong entusiast eller bare nysgerrig på konceptet? Så tjek én eller flere af nedenstående links ud.</i>"`
+
+-   `r paste0(var_ikon$k_link_ny, " [<b>Køb bat hos BTEX</b>](https://www.btex.dk/sanwei-wcpp-sandpapirsbat.html){target=_blank}<br><i>De officielle Sanwei WCPP Sandpapirsbat kan købes hos Bordtennisexperterne (BTEX) til eget brug for ", tbl5_webscraping_btex$pris, ".</i><p>![](Filer/Generelt/Sandpapirsbat-Sanwei.png){width=4em}</p>")`
+
+-   `r paste(var_ikon$k_link_ny, "[<b>Matchroom Live</b>](https://matchroom.live/sports/ping_pong){target=_blank}<br><i>Tidligere videoer fra WCPP kan ses på Matchroom Live.</i><p>![](Filer/Generelt/Matchroom.png){width=4em}</p>")`
+
+-   `r paste(var_ikon$k_link_ny, "[<b>World Ping Pong</b>](https://classichardbat.com/home){target=_blank}<br><i>Fællesskab for Ping Pong, hardbat og træbat med bl.a. events og rating inden for disse discipliner.</i><p>![](Filer/Generelt/World-Ping-Pong.png){width=4em}</p>")`
+:::
+:::
+:::
+
+::: {.callout-note style="font-style:italic" icon="false"}
+## `r paste(var_ikon$k_facebook, "Facebook")`
+
+```{r}
+#| output: asis
+cat(tbl0_status$k_forside_facebook)
+```
+:::
+
+```{=html}
+<iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/{{< var var.facebook_side_id >}}&tabs=timeline,events,messages&width=320&" width="100%" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay;clipboard-write;encrypted-media;picture-in-picture;web-share"></iframe>
+```
+::: {.callout-tip style="font-style:italic"}
+## Tip
+
+```{r}
+#| output: asis
+cat(paste(
+var_ikon$k_bogmærke, "<b>Bogmærk</b> [siden](index.qmd) for nem og hurtig adgang.",
+"<br>Genvejstast: {{< kbd Ctrl+d >}} PC", var_ikon$k_windows, "∙ {{< kbd ⌘+d >}} Mac", var_ikon$k_mac))
+```
+:::

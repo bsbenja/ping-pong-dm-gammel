@@ -1,0 +1,121 @@
+# Kopier/indsæt for offentliggørelse af hjemmeside via Terminal (Alt+Shift+M) =>
+# quarto publish quarto-pub --no-prompt --no-browser
+
+project:
+  type: website
+  resources:
+    - "googlebfa7a423a7b87736.html"
+  render:
+    - "*.qmd"
+    - "index.qmd" # "!index.qmd"
+    - "indbydelse-tilmelding.qmd" # "!indbydelse-tilmelding.qmd"
+    - "præmier-deltagere.qmd" # "!præmier-deltagere.qmd"
+    - "regler.qmd" # "!regler.qmd"
+    - "wcpp.qmd" # "!wcpp.qmd"
+    - "koncept.qmd" # "!koncept.qmd"
+    - "bi.qmd" # "!bi.qmd"
+
+website:
+  site-url: "https://pingpong.quarto.pub/dm"
+  favicon: "Filer/Generelt/Ping-Pong-DK.png"
+  title: "DM i Ping Pong"
+  google-analytics: "G-6903XX1GX6"
+  page-navigation: true
+  navbar:
+    background: "#398FCC"
+    logo: "Filer/Generelt/Ping-Pong-DK.png"
+    title: "<span style=font-size:80%>DM i Ping Pong</span><a style=white-space:nowrap;display:inline-block;background:#398FCC;color:#FFFFFF;border-style:solid;border-width:medium;border-color:#FFFFFF;text-align:center;font-weight:bold;font-size:80%;border-radius:20px;padding-left:10px;padding-right:10px;padding-top:5px;padding-bottom:5px;text-decoration:none href=indbydelse-tilmelding.qmd#tilmelding><span class=bi-tags-fill></span> Tilmeld</a>"
+    search: true
+  sidebar:
+    style: docked
+    background: light
+    contents:
+      - section: "<b>DM i Ping Pong 2023</b>"
+        contents:
+        - href: "indbydelse-tilmelding.qmd"
+        - href: "præmier-deltagere.qmd"
+      - text: "---"
+      - section: "<b>Generelt om Ping Pong</b>"
+        contents:
+        - href: "regler.qmd"
+        - href: "wcpp.qmd"
+        - href: "koncept.qmd"
+      - text: "---"
+      - section: "<b>Eksterne links</b>"
+        contents:
+        - text: "<a href=https://www.btex.dk/sanwei-wcpp-sandpapirsbat.html target=_blank><iconify-icon icon=mdi:open-in-new></iconify-icon> <u>Køb bat hos BTEX</u></a>"
+        - text: "<a href=https://matchroom.live/sports/ping_pong target=_blank><iconify-icon icon=mdi:open-in-new></iconify-icon> <u>Matchroom Live</u></a>"
+        - text: "<a href=https://classichardbat.com/home target=_blank><iconify-icon icon=mdi:open-in-new></iconify-icon> <u>World Ping Pong</u></a>"
+      - text: "<br>"
+      - text: |
+          <a href=https://bordtennisdanmark.dk/kalender/dm-i-ping-pong target=_blank><img src=Filer/Generelt/BTDK.png style=height:15px></a>
+          &nbsp;<a href=https://www.dgi.dk/bordtennis target=_blank><img src=Filer/Generelt/DGI.png style=height:15px></a>
+          &nbsp;<a href=http://hoerningbtk.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Arrangør.png style=height:15px></a>
+          &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:15px></a>
+          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:15px></a>
+          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:15px></a>
+          &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><i class=bi-facebook style=color:#1877F2></i></a>
+          &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><i class=bi-messenger style=color:#0695FF></i></a>
+          &nbsp;<a href=https://github.com/bsbenja/ping_pong_dm target=_blank><i class=bi-github style=color:#9F7BE1></i></a>
+  page-footer:
+    background: light
+    left:
+      - text: "<a style=white-space:nowrap;text-decoration:none;href=index.qmd><img src=Filer/Generelt/Ping-Pong-DK.png style=height:15px>&nbsp;DM i Ping Pong</a>"
+    right:
+      - text: |
+          <a href=https://bordtennisdanmark.dk/kalender/dm-i-ping-pong target=_blank><img src=Filer/Generelt/BTDK.png style=height:15px></a>
+          &nbsp;<a href=https://www.dgi.dk/bordtennis target=_blank><img src=Filer/Generelt/DGI.png style=height:15px></a>
+          &nbsp;<a href=http://hoerningbtk.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Arrangør.png style=height:15px></a>
+          &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:15px></a>
+          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:15px></a>
+          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:15px></a>
+          &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><i class=bi-facebook style=color:#1877F2></i></a>
+          &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><i class=bi-messenger style=color:#0695FF></i></a>
+          &nbsp;<a href=https://github.com/bsbenja/ping_pong_dm target=_blank><i class=bi-github style=color:#9F7BE1></i></a>
+
+format:
+  html:
+    theme:
+      light: united
+    mermaid: 
+      theme: default
+    grid: 
+      content-mode:  auto
+      sidebar-width: 275px # standard: 250px
+      body-width:    950px # standard: 800px
+      margin-width:  275px # standard: 250px
+      gutter-width:  1.5em # standard: 1.5em
+    mainfont: verdana
+    css: styles.css
+    df-print: default
+    fig-align: left
+    fontsize: "11pt"
+    linkcolor: "#398FCC"
+    section-title-footnotes: "Fodnoter"
+    toc-title: "Indhold på side"
+    toc-location: right
+    toc-depth: 3
+    toc-expand: true
+    toc: true
+    smooth-scroll: true
+    code-tools: false
+    fig-dpi: 300
+    white-space: pre-wap
+    code-overflow: wrap
+    header-includes: |
+      <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+      <meta name="google-site-verification" content="izkomDopuYjTHjF7B1NJSGr0ea8hNGw968SgEtk8n8g">
+
+editor: visual
+
+knitr:
+  opts_chunk:
+    comment: ""
+
+execute:
+  eval: true
+  output: true
+  freeze: false
+  echo: false
+  warning: false
+  error: false
