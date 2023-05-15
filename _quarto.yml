@@ -18,18 +18,20 @@ project:
 website:
   site-url: "https://pingpong.quarto.pub/dm"
   favicon: "Filer/Generelt/Ping-Pong-DK.png"
-  title: "DM i Ping Pong"
+  title: "DM i Ping Pong - Officiel hjemmeside"
   google-analytics: "G-6903XX1GX6"
   page-navigation: true
-  navbar:
-    background: "#398FCC"
-    logo: "Filer/Generelt/Ping-Pong-DK.png"
-    title: "<span style=font-size:80%>DM i Ping Pong</span><a style=white-space:nowrap;display:inline-block;background:#398FCC;color:#FFFFFF;border-style:solid;border-width:medium;border-color:#FFFFFF;text-align:center;font-weight:bold;font-size:80%;border-radius:20px;padding-left:10px;padding-right:10px;padding-top:5px;padding-bottom:5px;text-decoration:none href=indbydelse-tilmelding.qmd#tilmelding><span class=bi-tags-fill></span> Tilmeld</a>"
-    search: true
+  back-to-top-navigation: false
   sidebar:
     style: docked
     background: light
+    logo: "Filer/Generelt/Ping-Pong-DK.png"
+    title: false
+    search: true
+    border: true
     contents:
+      - href: "index.qmd"
+      - text: "---"
       - section: "<b>DM i Ping Pong 2023</b>"
         contents:
         - href: "indbydelse-tilmelding.qmd"
@@ -48,43 +50,45 @@ website:
         - text: "<a href=https://classichardbat.com/home target=_blank><iconify-icon icon=mdi:open-in-new></iconify-icon> <u>World Ping Pong</u></a>"
       - text: "<br>"
       - text: |
-          <a href=https://bordtennisdanmark.dk/kalender/dm-i-ping-pong target=_blank><img src=Filer/Generelt/BTDK.png style=height:15px></a>
-          &nbsp;<a href=https://www.dgi.dk/bordtennis target=_blank><img src=Filer/Generelt/DGI.png style=height:15px></a>
-          &nbsp;<a href=http://hoerningbtk.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Arrangør.png style=height:15px></a>
-          &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:15px></a>
-          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:15px></a>
-          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:15px></a>
-          &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><i class=bi-facebook style=color:#1877F2></i></a>
-          &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><i class=bi-messenger style=color:#0695FF></i></a>
-          &nbsp;<a href=https://github.com/bsbenja/ping_pong_dm target=_blank><i class=bi-github style=color:#9F7BE1></i></a>
+          <a href=https://bordtennisdanmark.dk/kalender/dm-i-ping-pong target=_blank><img src=Filer/Generelt/BTDK.png style=height:24px></a>
+          &nbsp;<a href=https://www.dgi.dk/bordtennis target=_blank><img src=Filer/Generelt/DGI.png style=height:24px></a>
+          &nbsp;<a href=http://hoerningbtk.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Arrangør.png style=height:24px></a>
+          &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:24px></a>
+          <br>
+          <a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:24px></a>
+          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:24px></a>
+          &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><span class=bi-facebook style=color:#1877F2;font-size:18px></span></a>
+          &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><span class=bi-messenger style=color:#0695FF;font-size:18px></span></a>
+          &nbsp;<a href=https://github.com/bsbenja/ping-pong-dm target=_blank><span class=bi-github style=color:#9F7BE1;font-size:18px></span></a>
   page-footer:
     background: light
-    left:
-      - text: "<a style=white-space:nowrap;text-decoration:none;href=index.qmd><img src=Filer/Generelt/Ping-Pong-DK.png style=height:15px>&nbsp;DM i Ping Pong</a>"
-    right:
+    border: true
+    center:
       - text: |
-          <a href=https://bordtennisdanmark.dk/kalender/dm-i-ping-pong target=_blank><img src=Filer/Generelt/BTDK.png style=height:15px></a>
-          &nbsp;<a href=https://www.dgi.dk/bordtennis target=_blank><img src=Filer/Generelt/DGI.png style=height:15px></a>
-          &nbsp;<a href=http://hoerningbtk.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Arrangør.png style=height:15px></a>
-          &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:15px></a>
-          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:15px></a>
-          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:15px></a>
-          &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><i class=bi-facebook style=color:#1877F2></i></a>
-          &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><i class=bi-messenger style=color:#0695FF></i></a>
-          &nbsp;<a href=https://github.com/bsbenja/ping_pong_dm target=_blank><i class=bi-github style=color:#9F7BE1></i></a>
+          <a style=font-weight:bold;font-size:18px;text-decoration:none;href=index.qmd><img src=Filer/Generelt/Ping-Pong-DK.png style=height:18px>&nbsp;DM i Ping Pong</a>
+          <br><br>
+          <a href=https://bordtennisdanmark.dk/kalender/dm-i-ping-pong target=_blank><img src=Filer/Generelt/BTDK.png style=height:24px></a>
+          &nbsp;<a href=https://www.dgi.dk/bordtennis target=_blank><img src=Filer/Generelt/DGI.png style=height:24px></a>
+          &nbsp;<a href=http://hoerningbtk.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Arrangør.png style=height:24px></a>
+          &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:24px></a>
+          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:24px></a>
+          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:24px></a>
+          &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><span class=bi-facebook style=color:#1877F2;font-size:18px></span></a>
+          &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><span class=bi-messenger style=color:#0695FF;font-size:18px></span></a>
+          &nbsp;<a href=https://github.com/bsbenja/ping-pong-dm target=_blank><span class=bi-github style=color:#9F7BE1;font-size:18px></span></a>
 
 format:
   html:
     theme:
       light: united
-    mermaid: 
+    mermaid:
       theme: default
-    grid: 
+    grid:
       content-mode:  auto
-      sidebar-width: 275px # standard: 250px
-      body-width:    950px # standard: 800px
-      margin-width:  275px # standard: 250px
-      gutter-width:  1.5em # standard: 1.5em
+      sidebar-width: 300px # standard: 250px
+      body-width:    800px # standard: 800px
+      margin-width:  300px # standard: 250px
+      gutter-width:  1.5em   # standard: 1.5em
     mainfont: verdana
     css: styles.css
     df-print: default

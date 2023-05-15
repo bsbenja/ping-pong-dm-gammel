@@ -46,8 +46,8 @@ var_ikon <- data.frame(
   k_mail        = "<iconify-icon icon=mdi:email></iconify-icon>",                              # var_ikon$k_mail
   k_telefon     = "<iconify-icon icon=mdi:phone></iconify-icon>",                              # var_ikon$k_telefon
   k_graf        = "<iconify-icon icon=mdi:chart-box></iconify-icon>",                          # var_ikon$k_graf
-  k_facebook    = "<i class=bi-facebook style=color:#1877F2></i>",                             # var_ikon$k_facebook
-  k_messenger   = "<i class=bi-messenger style=color:#0695FF></i>",                            # var_ikon$k_messenger
-  k_github      = "<i class=bi-github style=color:#9F7BE1></i>",                               # var_ikon$k_github
-  k_billet      = "<i class=bi-tags-fill></i>",                                                # var_ikon$k_billet
+  k_facebook    = "<span class=bi-facebook style=color:#1877F2></span>",                       # var_ikon$k_facebook
+  k_messenger   = "<span class=bi-messenger style=color:#0695FF></span>",                      # var_ikon$k_messenger
+  k_github      = "<span class=bi-github style=color:#9F7BE1></span>",                         # var_ikon$k_github
+  k_billet      = "<span class=bi-tags-fill></span>",                                          # var_ikon$k_billet
   check.names = T)

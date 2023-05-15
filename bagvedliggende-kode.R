@@ -48,9 +48,9 @@ tbl0_join_alle <- read_excel(
 	left_join(
 		y = read_excel(
 			tbl0_input$k_data, col_names = c(
-				"k_event_år", "k_billettype", "k_billettype_tilvalg", "k_billetpris",
+				"k_event_år", "k_billettype", "k_billettype_beskrivelse", "k_billettype_tilvalg", "k_billetpris",
 				"k_arrangørpris", "k_billetantal_maks", "k_event_år_billettype"),
-			range = cell_cols("V:AB")), by = "k_event_år_billettype") %>%
+			range = cell_cols("V:AC")), by = "k_event_år_billettype") %>%
 	
 	# Left join Event_år_d2 fra Excel
 	left_join(
@@ -135,6 +135,9 @@ tbl0_join_alle <- read_excel(
 		"🥳 Fest om aftenen",
 		"🎉 The Old Irish Pub",
 		"🥪 Frokost"), ordered = T))) %>%
+	
+	# k_billettype_beskrivelse
+	mutate(across("k_billettype_beskrivelse", \(x) as.character(x))) %>%
 	
 	# k_billettype_tilvalg
 	mutate(across("k_billettype_tilvalg", \(x) factor(x, ordered = T))) %>%
@@ -728,7 +731,7 @@ tbl0_status <- data.frame(
   } else if(tbl0_input$k_status_1_2_3_4 == 3 | tbl0_input$k_status_1_2_3_4 == 4) {
     paste0(
     	knitr::raw_html(paste0(
-    	  '<p style="text-align:center;width:30em;max-width:100%">
+    	  '<p style="text-align:center;width:50em;max-width:100%">
         <b style=font-size:120%>Nedtælling</b>
     	  <br>
     	  <b style=font-size:80%>', tbl0_unik$k_event_ping_pong_år, '</b>
@@ -736,7 +739,6 @@ tbl0_status <- data.frame(
         <span id="nedtællingsur"></span>
         <br>
         <b style=font-size:80%>', format(tbl0_unik$k_eventdato, "%d.%m.%Y kl. %H:%M:%S"), '</b>
-        </p>
 	
     		<script>
     		// Opdater nedtællingsur hvert sekund
@@ -771,22 +773,27 @@ tbl0_status <- data.frame(
   	      }
 	      }, 1000);
 	      </script>')),
-      "<a style=display:inline-block;background:#398FCC;color:#FFFFFF;",
-      "text-align:center;font-weight:bold;","font-size:150%;width:20em;",
-      "max-width:100%;line-height:20px;border-radius:40px;padding:10px;",
+    	"<br><br>",
+      "<a style=display:inline-block;background:#FF4A6E;color:#FFFFFF;",
+      "border-radius:40px;padding-left:50px;padding-right:50px;padding-top:5px;padding-bottom:5px;",
       "text-decoration:none href=indbydelse-tilmelding.qmd#tilmelding>",
-      var_ikon$k_billet, "</i> Tilmeld",
-      "<br>",
-      "<i style=font-weight:normal;font-size:60%>", tbl0_unik$k_event_ping_pong_år, "</i></a>",
+      "<b style=font-size:150%>", var_ikon$k_billet, " Tilmeld</b>",
+    	"<br>",
+      "<i style=font-size:90%>", tbl0_unik$k_event_ping_pong_år, "</i></a>",
       "<br><br>",
+    	"<i style=font-size:80%>",
+    	"Hurtigt overblik over eventet ses i indbydelsesplakaten ", var_ikon$k_hånd_ned, "</i>",
+    	"<br>",
       "![](Filer/Event/", unique(max(tbl0_join_alle$k_eventår)),
-      "/Indbydelsesplakat-DM-i-Ping-Pong-", unique(max(tbl0_join_alle$k_eventår)), ".png){width=30em}",
-      "<br>",
-      "<figcaption>",
-      "[<i style=font-size:80%>[Klik her for indbydelesplakat som PDF til udskrift]</i>]",
+      "/Indbydelsesplakat-DM-i-Ping-Pong-", unique(max(tbl0_join_alle$k_eventår)), ".png)",
+    	"<br>",
+      "<span>",
+      "[<i style=font-size:80%>",
+    	"[Klik her for indbydelesplakat som PDF til udskrift]</i>]",
       "(Filer/Event/", unique(max(tbl0_join_alle$k_eventår)),
       "/Indbydelsesplakat-DM-i-Ping-Pong-", unique(max(tbl0_join_alle$k_eventår)), ".pdf){target=_blank}",
-      "</figcaption><p><p>")
+      "</span>",
+    	"</p>")
   },
   
   # Status forside DM
@@ -1704,7 +1711,7 @@ if(tbl0_input$k_eventordre_T_F == T) {
         k_ordredato = sapply(list5_eventordre$orders, `[[`, c("date")),
         k_status    = sapply(list5_eventordre$orders, `[[`, c("state"))),
       by = "k_id") %>%
-    mutate(across("k_ordredato", \(x) as_datetime(x) + hours(+1))) %>%
+    mutate(across("k_ordredato", \(x) as_datetime(x) + hours(+2))) %>%
     mutate(across(c("k_billettype", "k_status"), \(x) factor(x, ordered = T))) %>%
     mutate(across("k_billetpris", \(x) as.numeric(x))) %>%
     arrange(desc(k_ordredato)) %>%

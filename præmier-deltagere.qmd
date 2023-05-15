@@ -1,10 +1,10 @@
 ```{r}
-source(file = "input-dm-ping-pong.R", local = knitr::knit_global())
+source(file = "ping-pong-dm-input.R", local = knitr::knit_global())
 ```
 
 ---
 title: "<iconify-icon icon=mdi:autorenew></iconify-icon> <u>Præmier & deltagere</u>"
-aliases: 
+aliases:
   - "præmier_deltagere.html"
 subtitle: |
   `r paste0(
@@ -145,12 +145,7 @@ if(tbl0_input$k_status_1_2_3_4 == 1 | tbl0_input$k_status_1_2_3_4 == 2 | tbl0_in
 
 ```{r}
 #| output: asis
-cat(paste0(
-"<h5 style=font-weight:bold>Klubber</h5>",
-"<i style=font-size:70%>",
-"<b>", tbl0_statistik$k_deltagerantal_klub, "</b>",
-"&nbsp;^[<i><b>Deltagere klub</b>: Deltagere klub opgøres efter antal tilmeldte deltagere til eventet fordelt på <q>klub</q>, <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf.</i>]",
-"</i>"))
+cat(paste0("<h5 style=font-weight:bold>Klubber</h5>"))
 ```
 
 ```{r}
@@ -161,6 +156,13 @@ graf4_klubber
 ```{r}
 #| output: asis
 cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_klub, "</b>",
+"&nbsp;^[<i><b>Deltagere klub</b>: Deltagere klub opgøres efter antal tilmeldte deltagere til eventet fordelt på <q>klub</q>, <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf.</i>]",
+"</i>",
+
+"<br>",
+
 "<i style=font-size:70%>",
 "<b>", tbl0_statistik$k_klubantal, "</b>",
 "&nbsp;^[<i><b>Forskellige klubber</b>: Forskellige klubber opgøres efter antal tilmeldte bordtennisklubber eksklusiv <q>ingen klub</q> og <q>udlandet</q> til eventet.</i>]",
@@ -181,12 +183,7 @@ kbl4_klubber
 
 ```{r}
 #| output: asis
-cat(paste0(
-"<h5 style=font-weight:bold>Danmarkskort</h5>",
-"<i style=font-size:70%>",
-"<b>Deltagere landsdel</b>:&nbsp;", tbl0_statistik$k_deltagerantal_landsdel,
-"&nbsp;^[<i><b>Deltagere landsdel</b>: Deltagere landsdel opgøres efter antal tilmeldte deltagere til eventet fordelt på Jylland, Fyn, Sjælland og Bornholm eksklusiv <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf. Landsdel tager udgangspunkt i bordtennisklubbens belligenhed.</i>]",
-"</i>"))
+cat(paste0("<h5 style=font-weight:bold>Danmarkskort</h5>"))
 ```
 
 ```{r}
@@ -197,6 +194,13 @@ graf4_DK
 ```{r}
 #| output: asis
 cat(paste0(
+"<i style=font-size:70%>",
+"<b>Deltagere landsdel</b>:&nbsp;", tbl0_statistik$k_deltagerantal_landsdel,
+"&nbsp;^[<i><b>Deltagere landsdel</b>: Deltagere landsdel opgøres efter antal tilmeldte deltagere til eventet fordelt på Jylland, Fyn, Sjælland og Bornholm eksklusiv <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf. Landsdel tager udgangspunkt i bordtennisklubbens belligenhed.</i>]",
+"</i>",
+
+"<br>",
+
 "<i style=font-size:70%>",
 "<b>Deltagere region</b>:&nbsp;", tbl0_statistik$k_deltagerantal_region,
 "&nbsp;^[<i><b>Deltagere region</b>: Deltagere region opgøres efter antal tilmeldte deltagere til eventet fordelt på Nordjylland, Midtjylland, Syddanmark, Sjælland og Hovedstaden eksklusiv <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf. Region tager udgangspunkt i bordtennisklubbens belligenhed.</i>]",
@@ -217,12 +221,7 @@ kbl4_DK
 
 ```{r}
 #| output: asis
-cat(paste0(
-"<h5 style=font-weight:bold>Aldersgrupper</h5>",
-"<i style=font-size:70%>",
-"<b>", tbl0_statistik$k_deltagerantal_aldersgruppe, "</b>",
-"&nbsp;^[<i><b>Deltagere aldersgruppe</b>: Deltagere aldersgruppe opgøres efter antal tilmeldte deltagere til eventet fordelt på ungdom (≤ 17 år), senior (≤ 39 år) og veteran (≥ 40 år). Procentsatserne viser fordelingen heraf. Alder tager udgangspunkt i fødselsdato og eventdatoen ", format(tbl0_unik$k_eventdato, "%d.%m.%Y"), " (ikke dags dato).</i>]",
-"</i>"))
+cat(paste0("<h5 style=font-weight:bold>Aldersgrupper</h5>"))
 ```
 
 ```{r}
@@ -233,6 +232,13 @@ graf4_aldersgruppe
 ```{r}
 #| output: asis
 cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_aldersgruppe, "</b>",
+"&nbsp;^[<i><b>Deltagere aldersgruppe</b>: Deltagere aldersgruppe opgøres efter antal tilmeldte deltagere til eventet fordelt på ungdom (≤ 17 år), senior (≤ 39 år) og veteran (≥ 40 år). Procentsatserne viser fordelingen heraf. Alder tager udgangspunkt i fødselsdato og eventdatoen ", format(tbl0_unik$k_eventdato, "%d.%m.%Y"), " (ikke dags dato).</i>]",
+"</i>",
+
+"<br>",
+
 "<i style=font-size:70%>",
 "<b>", tbl0_statistik$k_alder, "</b>",
 "&nbsp;^[<i><b>Alder</b>: Alder opgøres efter hhv. yngst, gennemsnitlig alder og ældst i forhold til tilmeldte deltagere til eventet. Alder tager udgangspunkt i fødselsdato og eventdatoen ", format(tbl0_unik$k_eventdato, "%d.%m.%Y"), " (ikke dags dato).</i>]",
@@ -253,17 +259,21 @@ kbl4_aldersgruppe
 
 ```{r}
 #| output: asis
-cat(paste0(
-"<h5 style=font-weight:bold>Køn</h5>",
-"<i style=font-size:70%>",
-"<b>", tbl0_statistik$k_deltagerantal_køn, "</b>",
-"&nbsp;^[<i><b>Deltagere køn</b>: Deltagere køn opgøres efter antal tilmeldte deltagere til eventet fordelt på herre og dame. Procentsatserne viser fordelingen heraf.</i>]",
-"</i>"))
+cat(paste0("<h5 style=font-weight:bold>Køn</h5>"))
 ```
 
 ```{r}
 #| fig-height: !expr (as.numeric(tbl0_join_aktuel %>% filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>% summarise(length(unique(k_køn))))+1.5)/3.3
 graf4_køn
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_køn, "</b>",
+"&nbsp;^[<i><b>Deltagere køn</b>: Deltagere køn opgøres efter antal tilmeldte deltagere til eventet fordelt på herre og dame. Procentsatserne viser fordelingen heraf.</i>]",
+"</i>"))
 ```
 
 ## Tabel
@@ -280,12 +290,7 @@ kbl4_køn
 
 ```{r}
 #| output: asis
-cat(paste0(
-"<h5 style=font-weight:bold>Gentilmeldinger</h5>",
-"<i style=font-size:70%>",
-"<b>", tbl0_statistik$k_deltagerantal_gentilmelding, "</b>",
-"&nbsp;^[<i><b>Deltagere gentilmelding</b>: Deltagere gentilmelding opgøres efter antal tilmeldte deltagere til eventet fordelt på <q>gentilmelding</q> og <q>debutant</q>. Procentsatserne viser fordelingen heraf. Gentilmelding defineres som en, der tidligere har valgt samme billetype, og debutant defineres som en, der har valgt en billettype for første gang. Ved både gentilmelding og debutant tælles dette kun som gentilmelding. Opgørelsen gælder fra og med ", distinct(filter(tbl0_join_alle, k_2021_eller_senere == tbl0_unik$k_2021_eller_senere), min(k_eventår)), ".</i>]",
-"</i>"))
+cat(paste0("<h5 style=font-weight:bold>Gentilmeldinger</h5>"))
 ```
 
 ```{r}
@@ -296,7 +301,10 @@ graf4_gentilmelding
 ```{r}
 #| output: asis
 cat(paste0(
-"<i style=font-size:70%>Gentilmeldinger gælder fra og med ", distinct(filter(tbl0_join_alle, k_2021_eller_senere == tbl0_unik$k_2021_eller_senere), min(k_eventår)), "</i>"))
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_gentilmelding, "</b>",
+"&nbsp;^[<i><b>Deltagere gentilmelding</b>: Deltagere gentilmelding opgøres efter antal tilmeldte deltagere til eventet fordelt på <q>gentilmelding</q> og <q>debutant</q>. Procentsatserne viser fordelingen heraf. Gentilmelding defineres som en, der tidligere har valgt samme billetype, og debutant defineres som en, der har valgt en billettype for første gang. Ved både gentilmelding og debutant tælles dette kun som gentilmelding. Opgørelsen gælder fra og med ", distinct(filter(tbl0_join_alle, k_2021_eller_senere == tbl0_unik$k_2021_eller_senere), min(k_eventår)), ".</i>]",
+"</i>"))
 ```
 
 ## Tabel
@@ -313,12 +321,7 @@ kbl4_gentilmelding
 
 ```{r}
 #| output: asis
-cat(paste0(
-"<h5 style=font-weight:bold>Deltagere</h5>",
-"<i style=font-size:70%>",
-"<b>", tbl0_statistik$k_deltagerantal_total, "</b>",
-"&nbsp;^[<i><b>Deltagere total</b>: Deltagere total opgøres efter antal tilmeldte deltagere og <q>totalafbud</q> til eventet. Procentsatserne viser fordelingen heraf. Ved <q>totalafbud</q> forstås deltagere, der har meldt afbud til hele eventet.</i>]",
-"</i>"))
+cat(paste0("<h5 style=font-weight:bold>Deltagere</h5>"))
 ```
 
 ```{r}
@@ -329,6 +332,13 @@ graf4_tilmeldingstype
 ```{r}
 #| output: asis
 cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_total, "</b>",
+"&nbsp;^[<i><b>Deltagere total</b>: Deltagere total opgøres efter antal tilmeldte deltagere og <q>totalafbud</q> til eventet. Procentsatserne viser fordelingen heraf. Ved <q>totalafbud</q> forstås deltagere, der har meldt afbud til hele eventet.</i>]",
+"</i>",
+
+"<br>",
+
 "<i style=font-size:70%>",
 "<b>", tbl0_statistik$k_billetantal_gns, "</b>",
 "&nbsp;^[<i><b>Billetter pr. deltager</b>: Billetter pr. deltager er et gennemsnit, som opgøres efter antal tilmeldinger (billetantal) divideret med tilmeldte deltagere til eventet.</i>]",

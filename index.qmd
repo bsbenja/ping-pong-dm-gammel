@@ -1,10 +1,11 @@
 ```{r}
-source(file = "input-dm-ping-pong.R", local = knitr::knit_global())
+source(file = "ping-pong-dm-input.R", local = knitr::knit_global())
 ```
 
 ---
 title: "<iconify-icon icon=mdi:home></iconify-icon> <u>Forside</u>"
-subtitle: "<i style=font-size:80%>Velkommen til den officielle hjemmeside for Danske Mesterskaber i Ping Pong. Ping Pong er bordtennis på <b><u>lige vilkår</u></b> med sandpapirsbat, som er <b><u>åben for ALLE</u></b> til en <b><u>overkommelig pris</u></b>. Se mere ved at navigere rundt her på hjemmesiden. Fra mobil gøres dette via topmenuen.</i>"
+subtitle: |
+  <b style=font-size:140%>DM i Ping Pong - Officiel hjemmeside</b><br><i style=font-size:80>Velkommen til den officielle hjemmeside for Danske Mesterskaber i Ping Pong. Ping Pong er bordtennis på <b><u>lige vilkår</u></b> med sandpapirsbat, som er <b><u>åben for ALLE</u></b> til en <b><u>overkommelig pris</u></b>. Se mere ved at navigere rundt her på hjemmesiden. Fra mobil gøres dette via topmenuen.</i>
 editor_options: 
   chunk_output_type: console
 ---
@@ -67,6 +68,6 @@ cat(tbl0_status$k_forside_facebook)
 #| output: asis
 cat(paste(
 var_ikon$k_bogmærke, "<b>Bogmærk</b> [siden](index.qmd) for nem og hurtig adgang.",
-"<br>Genvejstast: {{< kbd Ctrl+d >}} PC", var_ikon$k_windows, "∙ {{< kbd ⌘+d >}} Mac", var_ikon$k_mac))
+"<br>Genvejstast: {{< kbd Ctrl&nbsp;+&nbsp;d >}} PC", var_ikon$k_windows, "∙ {{< kbd ⌘&nbsp;+&nbsp;d >}} Mac", var_ikon$k_mac))
 ```
 :::

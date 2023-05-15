@@ -1,5 +1,5 @@
 ```{r}
-source(file = "input-dm-ping-pong.R", local = knitr::knit_global())
+source(file = "ping-pong-dm-input.R", local = knitr::knit_global())
 ```
 
 ```{r}
@@ -117,67 +117,69 @@ editor_options:
 #| output: asis
 cat(paste0(
 knitr::raw_html(paste0(
-	'<p style="text-align:center;width:36em;max-width:100%">
+  '<p style="text-align:center;width:50em;max-width:100%">
   <b style=font-size:120%>Nedtælling</b>
-	<br>
-	<b style=font-size:80%>', var_indbydelse$k_event_ping_pong_år, '</b>
+  <br>
+  <b style=font-size:80%>', var_indbydelse$k_event_ping_pong_år, '</b>
   <br>
   <span id="nedtællingsur"></span>
   <br>
   <b style=font-size:80%>', format(var_indbydelse$k_eventdato, "%d.%m.%Y kl. %H:%M:%S"), '</b>
-  </p>
 	
-	<script>
-	// Opdater nedtællingsur hvert sekund
-	var x = setInterval(function() {
-		
-  	// Differencen mellem eventdatoen og dags dato
-  	var nedtællingsur_dif = new Date("', var_indbydelse$k_eventdato, '").getTime() - new Date().getTime();
-		
-  	// Vis resultatet i elementet med id="nedtællingsur"
+  <script>
+  // Opdater nedtællingsur hvert sekund
+  var x = setInterval(function() {
+  
+    // Differencen mellem eventdatoen og dags dato
+    var nedtællingsur_dif = new Date("', var_indbydelse$k_eventdato, '").getTime() - new Date().getTime();
+    
+    // Vis resultatet i elementet med id="nedtællingsur"
   	document.getElementById("nedtællingsur").innerHTML =
 		
-  	"<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
+    "<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
   	Math.floor(nedtællingsur_dif / (1000 * 60 * 60 * 24)) +
   	"<br><span style=font-size:80%>dage</span></b>&ensp;" +
   	
-  	"<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
+    "<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
   	Math.floor((nedtællingsur_dif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) +
   	"<br><span style=font-size:80%>timer</span></b>&ensp;" +
   	
-  	"<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
+    "<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
   	Math.floor((nedtællingsur_dif % (1000 * 60 * 60)) / (1000 * 60)) +
   	"<br><span style=font-size:80%>min.</span></b>&ensp;" +
   	
-  	"<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
+    "<b style=display:inline-block;border-style:solid;padding:5px;width:60px;text-align:center>" +
   	Math.floor((nedtællingsur_dif % (1000 * 60)) / 1000) +
   	"<br><span style=font-size:80%>sek.</span></b>";
 		
-  	// Hvis nedtællingsur er udløbet
+    // Hvis nedtællingsur er udløbet
   	if (nedtællingsur_dif < 0) {
-    	clearInterval(x);
-    	document.getElementById("nedtællingsur").innerHTML = "<i>Eventet er udløbet</i>";
+      clearInterval(x);
+      document.getElementById("nedtællingsur").innerHTML = "<i>Eventet er udløbet</i>";
   	}
-	}, 1000);
-	</script>')),
-"<a style=display:inline-block;background:#398FCC;color:#FFFFFF;",
-"text-align:center;font-weight:bold;","font-size:150%;width:24em;",
-"max-width:100%;line-height:20px;border-radius:40px;padding:10px;",
-"text-decoration:none href=indbydelse-tilmelding.qmd#tilmelding>",
-var_ikon$k_billet, "</i> Tilmeld",
-"<br>",
-"<i style=font-weight:normal;font-size:60%>", var_indbydelse$k_event_ping_pong_år, "</i></a>",
+  }, 1000);
+  </script>')),
 "<br><br>",
-"![](Filer/Event/", var_indbydelse$k_eventår,
-"/Indbydelsesplakat-DM-i-Ping-Pong-", var_indbydelse$k_eventår,
-".png){width=36em}",
+"<a style=display:inline-block;background:#FF4A6E;color:#FFFFFF;",
+"border-radius:40px;padding-left:50px;padding-right:50px;padding-top:5px;padding-bottom:5px;",
+"text-decoration:none href=indbydelse-tilmelding.qmd#tilmelding>",
+"<b style=font-size:150%>", var_ikon$k_billet, " Tilmeld</b>",
 "<br>",
-"<figcaption>",
-"[<i style=font-size:80%>[Klik her for indbydelesplakat som PDF til udskrift]</i>]",
+"<i style=font-size:90%>", var_indbydelse$k_event_ping_pong_år, "</i></a>",
+"<br><br>",
+"<i style=font-size:80%>",
+"Hurtigt overblik over eventet ses i indbydelsesplakaten ", var_ikon$k_hånd_ned, "</i>",
+"<br>",
+"![](Filer/Event/", var_indbydelse$k_eventår,
+"/Indbydelsesplakat-DM-i-Ping-Pong-", var_indbydelse$k_eventår, ".png)",
+"<br>",
+"<span>",
+"[<i style=font-size:80%>",
+"[Klik her for indbydelesplakat som PDF til udskrift]</i>]",
 "(Filer/Event/", var_indbydelse$k_eventår,
-"/Indbydelsesplakat-DM-i-Ping-Pong-", var_indbydelse$k_eventår,
-".pdf){target=_blank}",
-"</figcaption><p><p>"))
+"/Indbydelsesplakat-DM-i-Ping-Pong-", var_indbydelse$k_eventår, ".pdf){target=_blank}",
+"</span>",
+"</p>"))
 ```
 
 # `r paste(var_ikon$k_indbydelse, "Indbydelse")`
@@ -198,22 +200,20 @@ cat(paste0("[Hørning Bordtennisklub](http://hoerningbtk.dk){target=_blank}, i s
 tbl0_join_alle %>%
 	filter(k_eventår == var_indbydelse$k_eventår) %>%
 	distinct(k_billettype, .keep_all = T) %>%
-	mutate(k_billettype = paste0("<a style=color:#000000;text-decoration:none href=indbydelse-tilmelding.qmd#", gsub(" ", "-", sub(".*? ", "", tolower(ifelse(grepl("Ping Pong", k_billettype), paste(k_billettype, var_indbydelse$k_eventår), as.character(k_billettype))))), ">", k_ikon_billettype, sub(".*? ", " ", ifelse(grepl("Ping Pong", k_billettype), paste(k_billettype, var_indbydelse$k_eventår), as.character(k_billettype))), "</a>")) %>%
-	mutate(k_billetpris = paste("kr.", format(k_billetpris, big.mark = "."), var_ikon$k_penge)) %>%
+	mutate(k_billettype = paste0("<a style=font-weight:bold;color:#000000;text-decoration:none href=indbydelse-tilmelding.qmd#", gsub(" ", "-", sub(".*? ", "", tolower(ifelse(grepl("Ping Pong", k_billettype), paste(k_billettype, var_indbydelse$k_eventår), as.character(k_billettype))))), ">", sub(".*? ", " ", ifelse(grepl("Ping Pong", k_billettype), paste(k_billettype, var_indbydelse$k_eventår), as.character(k_billettype))), "</a>", "<br>", "<i style=font-size:80%>", k_billettype_beskrivelse, "</i>")) %>%
+	mutate(k_billetpris = paste("<b>", "Kr.", format(k_billetpris, big.mark = "."), var_ikon$k_penge, "</b>", "<br>", "<i style=font-size:80%>", "Maks.", format(k_billetantal_maks, big.mark = "."), var_ikon$k_person, "</i>")) %>%
 	mutate(k_billetantal_maks = paste(format(k_billetantal_maks, big.mark = "."), var_ikon$k_person)) %>%
 	select(
-    "Billettype" = k_billettype,
-    "Pris"       = k_billetpris,
-    "Maks."      = k_billetantal_maks) %>%
-	kbl(col.names = NA, align = "lrr", escape = F, table.attr = "data-quarto-disable-processing=true",
+		" "            = k_ikon_billettype,
+    "Billettype"   = k_billettype,
+    "Pris & maks." = k_billetpris) %>%
+	kbl(col.names = NA, align = "llr", escape = F, table.attr = "data-quarto-disable-processing=true",
       caption = paste0("<p>", var_ikon$k_billet, " <b>Billettyper</b></p><i style=font-size:80%>", nrow(distinct(filter(tbl0_join_alle, k_eventår == var_indbydelse$k_eventår), k_billettype)), " valgmuligheder ved tilmelding.</i>")) %>%
 	kable_classic(position = "l", full_width = F, html_font = "verdana") %>%
 	footnote(paste0(
     "<i style=font-size:80%>Først til mølle-princip. Tilmeldingsfrist ", trimws(format(var_indbydelse$k_tilmeldingsfrist, "%e. %B")), ".<br>Ved tilmelding modtages bekræftelsesmail.<br>Mikrogebyrer pålægges alle priser.</i>"),
     general_title = "", escape = F) %>%
 	row_spec(0, background = var_indbydelse$k_farve_1, color = "#FFFFFF") %>%
-	column_spec(1, bold = T) %>%
-	column_spec(2:3, width_min = "5em") %>%
 	column_spec(1:3, extra_css = "border-top:0.7px solid #999999") %>%
 	gsub("\\{\\{&lt;|&lt;", "{{<", .) %>% gsub("&gt;}}", ">}}", .)
 

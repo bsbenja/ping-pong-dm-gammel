@@ -1,5 +1,5 @@
 ```{r}
-source(file = "input-dm-ping-pong.R", local = knitr::knit_global())
+source(file = "ping-pong-dm-input.R", local = knitr::knit_global())
 ```
 
 ---
