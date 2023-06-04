@@ -222,11 +222,11 @@ tbl0_join_alle <- read_excel(
 	
 	# k_klokkeslætsinterval
 	mutate(k_klokkeslætsinterval = case_when(
-		hour(k_første_ordredato) >= 18 ~ "[>=18] Aften",
-		TRUE ~ "[>=00] Øvrig")) %>%
+		hour(k_første_ordredato) >= 18 ~ "[≥ 18] Aften",
+		TRUE ~ "[≥ 00] Øvrig")) %>%
 	mutate(across("k_klokkeslætsinterval", \(x) factor(x, levels = c(
-		"[>=18] Aften",
-		"[>=00] Øvrig"), ordered = T))) %>%
+		"[≥ 18] Aften",
+		"[≥ 00] Øvrig"), ordered = T))) %>%
 	
 	# k_tilmeldingstype
 	mutate(k_tilmeldingstype = case_when(
@@ -278,22 +278,22 @@ tbl0_join_alle <- read_excel(
 	
 	# k_antal_gentilmelding
 	arrange(k_ordredato, k_billettype) %>%
-	group_by(k_deltager_id, k_billettype, k_status, k_2021_eller_senere) %>%
-	mutate(k_antal_gentilmelding = case_when(
-		grepl("Tilmeldt", k_status) ~ paste0(cumsum(!duplicated(year(k_ordredato))), ". gang"),
-		TRUE ~ as.character(k_status))) %>%
+	group_by(k_deltager_id, k_billettype, k_2021_eller_senere) %>%
+	mutate(k_antal_gentilmelding = ifelse(grepl("Afbud", k_status), 0, 1)) %>%
+	mutate(k_antal_gentilmelding = paste0(cumsum(k_antal_gentilmelding), " ", ifelse(
+		cumsum(k_antal_gentilmelding) == 1, "gang", "gange"))) %>%
 	ungroup() %>%
 	mutate(across("k_antal_gentilmelding", \(x) factor(x, ordered = T))) %>%
 	
 	# k_gentilmelding
 	mutate(k_gentilmelding = case_when(
-		substr(k_antal_gentilmelding, 1, 1) == 1 ~ "Debutant",
-		substr(k_antal_gentilmelding, 1, 1) >= 2 ~ "Gentilmelding",
-		TRUE ~ as.character(k_status))) %>%
+		sub(" .*", "", k_antal_gentilmelding) == 1 ~ "Debutant",
+		sub(" .*", "", k_antal_gentilmelding) >= 2 ~ "Gentilmelding",
+		TRUE                                     ~ "Ikke hidtil")) %>%
 	mutate(across("k_gentilmelding", \(x) factor(x, levels = c(
 		"Debutant",
 		"Gentilmelding",
-		"❌ Afbud"), ordered = T))) %>%
+		"Ikke hidtil"), ordered = T))) %>%
 	
 	# k_rating
 	mutate(k_rating = case_when(
@@ -314,7 +314,7 @@ tbl0_join_alle <- read_excel(
 	mutate(k_født = if_else(
 		substr(k_deltager_id, 5, 6) <= substr(year(k_eventdato), 3, 4),
 		paste0(
-			substr(year(k_eventdato), 1, 2), substr(k_deltager_id, 5, 6), "-",
+			as.numeric(substr(year(k_eventdato), 1, 2)), substr(k_deltager_id, 5, 6), "-",
 			substr(k_deltager_id, 3, 4), "-",
 			substr(k_deltager_id, 1, 2)),
 		paste0(
@@ -388,11 +388,11 @@ tbl0_join_alle <- read_excel(
 	
 	# k_ikon_tilmeldingstype
 	mutate(k_ikon_tilmeldingstype = case_when(
-		grepl("Ordinær", k_tilmeldingstype) ~ var_ikon$k_billet,
+		grepl("Ordinær", k_tilmeldingstype) ~ var_ikon$k_tilmeldt,
 		grepl("Drive-in", k_tilmeldingstype) ~ var_ikon$k_drive_in,
 		grepl("Afbud",    k_tilmeldingstype) ~ var_ikon$k_afbud)) %>%
 	mutate(across("k_ikon_tilmeldingstype", \(x) factor(x, levels = c(
-		var_ikon$k_billet,
+		var_ikon$k_tilmeldt,
 		var_ikon$k_drive_in,
 		var_ikon$k_afbud), ordered = T))) %>%
 	
@@ -400,11 +400,11 @@ tbl0_join_alle <- read_excel(
 	mutate(k_ikon_gentilmelding = case_when(
 		grepl("Debutant", k_gentilmelding) ~ var_ikon$k_debutant,
 		grepl("Gentilmelding", k_gentilmelding) ~ var_ikon$k_gentagelse,
-		TRUE ~ var_ikon$k_afbud)) %>%
+		TRUE ~ var_ikon$k_nul)) %>%
 	mutate(across("k_ikon_gentilmelding", \(x) factor(x, levels = c(
 		var_ikon$k_debutant,
 		var_ikon$k_gentagelse,
-		var_ikon$k_afbud), ordered = T))) %>%
+		var_ikon$k_nul), ordered = T))) %>%
 	
 	# k_ikon_køn
 	mutate(k_ikon_køn = case_when(
@@ -531,7 +531,7 @@ tbl0_statistik <- data.frame(
     tbl0_join_aktuel %>%
       filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>%
     	group_by(k_deltager_id) %>%
-    	slice(which.max(substr(k_antal_gentilmelding, 1, 1))) %>%
+    	slice(which.max(sub(" .*", "", k_antal_gentilmelding))) %>%
     	ungroup() %>%
       count(k_ikon_gentilmelding, k_gentilmelding) %>%
       mutate(pct = percent(n/sum(n), digits = 0)) %>%
@@ -639,7 +639,7 @@ tbl0_statistik <- data.frame(
     tbl0_join_aktuel %>%
       filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>%
       group_by(k_deltager_id) %>%
-      filter(n() > 1) %>%
+      filter(n() >= 2) %>%
       count(k_ordredato) %>%
       ungroup() %>%
       distinct(k_deltager_id, .keep_all = T) %>%
@@ -996,10 +996,7 @@ kbl1_præmier_yngst_ældst
 tbl2_deltagere_foreløbig <- tbl0_join_aktuel %>%
   filter(!is.na(k_deltager_id)) %>%
   distinct(k_deltager_id, k_status, .keep_all = T) %>%
-  arrange(
-    k_billettype,
-    desc(k_født),
-    k_navn) %>%
+  arrange(k_status, k_billettype, desc(k_født), k_navn) %>%
   group_by(k_status) %>%
   mutate(Nr. = row_number()) %>%
   ungroup() %>%
@@ -1102,12 +1099,12 @@ tbl2_deltagere_andet <- tbl0_join_aktuel %>%
   filter(
     !is.na(k_deltager_id) &
     !grepl("Ping Pong", k_billettype) &
-      substr(k_billetsalg_pr_tilmelding, 1, 1) == 1 |
+      sub(" .*", "", k_billetsalg_pr_tilmelding) == 1 |
       grepl("Afbud", k_status)) %>%
   distinct(k_deltager_id, k_status, .keep_all = T) %>%
   arrange(
     k_status,
-    desc(substr(k_billetsalg_pr_tilmelding, 1, 1)),
+    desc(sub(" .*", "", k_billetsalg_pr_tilmelding)),
     desc(k_født),
     k_deltager_id) %>%
   group_by(k_status) %>%
@@ -1139,6 +1136,47 @@ kbl2_deltagere_andet <- tbl2_deltagere_andet %>%
   gsub("\\{\\{&lt;|&lt;", "{{<", .) %>% gsub("&gt;}}", ">}}", .)
 }
 kbl2_deltagere_andet
+
+#' ## Manglende deltagere
+#+ eval=F, warning=F, message=F
+
+tbl2_deltagere_mangler <- tbl0_join_alle %>%
+	anti_join(y = tbl0_join_aktuel, by = "k_deltager_id") %>%
+	group_by(k_deltager_id) %>%
+	slice(which.max(k_ordredato)) %>%
+	ungroup() %>%
+	add_count(k_klub) %>%
+	arrange(
+		k_status, desc(n), ifelse(grepl("Ingen klub|Udlandet", k_klub), 2, 1), k_klub, desc(k_eventår),
+		desc(sub(" .*", "", k_billetsalg_pr_tilmelding)), k_billettype, k_navn) %>%
+	group_by(k_status) %>%
+	mutate(Nr. = row_number()) %>%
+	ungroup() %>%
+	select(
+		Nr.,
+		" "     = k_logo_klub,
+		"Navn"  = k_navn_billettype,
+		"Sidst" = k_eventår,
+		k_status)
+
+if(nrow(tbl2_deltagere_mangler) == 0) {
+	kbl2_deltagere_mangler <- data.frame() %>% kbl()
+} else {
+kbl2_deltagere_mangler <- tbl2_deltagere_mangler %>%
+	kbl(col.names = NA, align = "l", escape = F, table.attr = "data-quarto-disable-processing=true",
+			caption = paste0(
+				var_ikon$k_person, " <b>Manglende deltagere fra før ", tbl0_unik$k_eventår, "</b>",
+				"<br>",
+				"<i style=font-size:80%>Sorteret efter klubantal og år</i>")) %>%
+	kable_classic(position = "l", full_width = F, html_font = "verdana") %>%
+	row_spec(0, background = tbl0_unik$k_farve_1, color = "#FFFFFF") %>%
+	row_spec(which(grepl("Afbud", tbl2_deltagere_mangler$k_status)),
+					 strikeout = T, color = tbl0_unik$k_farve_1) %>%
+	column_spec(1, width_min = "2em") %>%
+	column_spec(1:4, extra_css = "border-top:0.7px solid #999999") %>%
+	remove_column(5)
+}
+kbl2_deltagere_mangler
 
 #' # Resultater
 # Resultater --------------------------------------------------------------
@@ -1265,7 +1303,7 @@ tbl4_klubber <- tbl0_join_aktuel %>%
 	distinct(k_deltager_id, .keep_all = T) %>%
 	arrange(
 		k_status, desc(n), ifelse(grepl("Ingen klub|Udlandet", k_klub), 2, 1), k_klub,
-		desc(substr(k_billetsalg_pr_tilmelding, 1, 1)), k_billettype, k_navn) %>%
+		desc(sub(" .*", "", k_billetsalg_pr_tilmelding)), k_billettype, k_navn) %>%
 	select(
 		" "    = k_logo_klub,
 		"Navn" = k_navn_billettype,
@@ -1319,7 +1357,7 @@ tbl4_DK <- tbl0_join_aktuel %>%
 		grepl("Ingen klub|Udlandet", k_klub), k_klub, paste0(k_samlet_postnr_by, ", ", k_region))) %>%
 	arrange(
 		k_status, k_region, desc(k_postnr),
-		desc(substr(k_billetsalg_pr_tilmelding, 1, 1)), k_billettype, k_navn) %>%
+		desc(sub(" .*", "", k_billetsalg_pr_tilmelding)), k_billettype, k_navn) %>%
 	select(
 		" "        = k_logo_klub,
 		"Navn"     = k_navn_billettype,
@@ -1427,14 +1465,14 @@ graf4_køn
 tbl4_køn <- tbl0_join_aktuel %>%
 	filter(!is.na(k_deltager_id)) %>%
 	distinct(k_deltager_id, .keep_all = T) %>%
-	mutate(k_køn = paste(sub(".*? ", "", k_køn), k_ikon_køn)) %>%
+	mutate(k_køn_ikon = paste(sub(".*? ", "", k_køn), k_ikon_køn)) %>%
 	arrange(
 		k_status, k_køn,
-		desc(substr(k_billetsalg_pr_tilmelding, 1, 1)), k_billettype, k_navn) %>%
+		desc(sub(" .*", "", k_billetsalg_pr_tilmelding)), k_billettype, k_navn) %>%
 	select(
 		" "    = k_logo_klub,
 		"Navn" = k_navn_billettype,
-		"Køn"  = k_køn,
+		"Køn"  = k_køn_ikon,
 		k_status)
 
 kbl4_køn <- tbl4_køn %>%
@@ -1484,11 +1522,11 @@ graf4_gentilmelding
 tbl4_gentilmelding <- tbl0_join_aktuel %>%
 	filter(!is.na(k_deltager_id)) %>%
 	group_by(k_deltager_id) %>%
-	slice(which.max(substr(k_antal_gentilmelding, 1, 1))) %>%
+	slice(which.max(sub(" .*", "", k_antal_gentilmelding))) %>%
 	ungroup() %>%
 	arrange(
 		k_status, k_antal_gentilmelding,
-		desc(substr(k_billetsalg_pr_tilmelding, 1, 1)), k_billettype, k_navn) %>%
+		desc(sub(" .*", "", k_billetsalg_pr_tilmelding)), k_billettype, k_navn) %>%
 	mutate(k_antal_gentilmelding = paste(
 		k_gentilmelding, "<br>", k_antal_gentilmelding, k_ikon_gentilmelding)) %>%
 	select(
@@ -1720,7 +1758,7 @@ if(tbl0_input$k_eventordre_T_F == T) {
   shell.exec(normalizePath(tbl0_input$k_data))
   browseURL("https://pingpong.quarto.pub/dm/pr%C3%A6mier_deltagere.html")
   browseURL("https://bordtennisportalen.dk/DBTU/Ranglister")
-  browseURL(paste0("https://billetfix.dk/da/dashboard/", tbl0_unik$k_uuid, "/overview"))
+  browseURL(paste0("https://billetfix.dk/da/dashboard/", tbl0_unik$k_uuid, "/orders"))
   cat(paste0(
     tbl5_eventordre %>%
       filter(grepl("PAID", k_status)) %>%
@@ -1729,7 +1767,7 @@ if(tbl0_input$k_eventordre_T_F == T) {
       filter(grepl("PAID", k_status)) %>%
       group_by(k_billettype) %>%
       summarise(label = paste("kr.", format(sum(k_billetpris), big.mark = "."), "(PAID)")) %>%
-      mutate(label = paste(substr(k_billettype, 1, 1), label)) %>%
+      mutate(label = paste(sub(" .*", "", k_billettype), label)) %>%
       summarise(label = str_c(label, collapse = "\n")), "\n\n",
     tbl5_eventordre %>%
       count(k_status) %>%
@@ -1739,7 +1777,7 @@ if(tbl0_input$k_eventordre_T_F == T) {
     tbl5_eventordre %>%
       count(k_status, k_billettype) %>%
       mutate(pct = percent(n/sum(n), digits = 0)) %>%
-      mutate(label = paste0(substr(k_billettype, 1, 1), " ", k_status, " ", n, " (", pct, ")")) %>%
+      mutate(label = paste0(sub(" .*", "", k_billettype), " ", k_status, " ", n, " (", pct, ")")) %>%
       summarise(label = str_c(label, collapse = "\n")), "\n\n"))
 } else if (tbl0_input$k_eventordre_T_F == F) {"tbl0_input$k_eventordre_T_F = F"}
 
@@ -1814,7 +1852,7 @@ if(tbl0_input$k_webscraping_rating_T_F == T) {
   
   tbl5_webscraping_rating <- tbl5_webscraping_rating %>%
     separate(Navn, into = c("Navn", "Klub"), sep = ",.", extra = "merge")
-  tbl4_join_webscraping_rating <- tbl0_join_aktuel %>%
+  tbl5_join_webscraping_rating <- tbl0_join_aktuel %>%
     arrange(desc(k_ordredato)) %>%
     left_join(
       y = tbl5_webscraping_rating,
@@ -1827,7 +1865,7 @@ if(tbl0_input$k_webscraping_rating_T_F == T) {
     path = normalizePath("Filer/Generelt/Webscraping rating.xlsx"))
   write_xlsx(
     setNames(
-      list(tbl4_join_webscraping_rating), format(tbl0_unik$k_ratingopdatering, "%d.%m.%Y")),
+      list(tbl5_join_webscraping_rating), format(tbl0_unik$k_ratingopdatering, "%d.%m.%Y")),
     path = normalizePath("Filer/Generelt/Webscraping join rating.xlsx"))
   shell.exec(normalizePath("Filer/Generelt/Webscraping join rating.xlsx"))
 } else if(tbl0_input$k_webscraping_rating_T_F == F) {"tbl0_input$k_webscraping_rating_T_F = F"}

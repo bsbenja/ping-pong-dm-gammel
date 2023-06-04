@@ -31,6 +31,12 @@ graf4_år
 ```
 
 ```{r}
+kbl2_deltagere_puljer
+kbl2_deltagere_andet
+kbl2_deltagere_mangler
+```
+
+```{r}
 ojs_define(tbl0_join_alle)
 ```
 
@@ -67,7 +73,7 @@ viewof k_gentilmelding = Inputs.checkbox(
 
 viewof k_klokkeslætsinterval = Inputs.checkbox(
   data_bi.map(d => d.k_klokkeslætsinterval), {sort: true, unique: true,
-  label: ["🎫 Klokkeslætsinterval"], value: ["[>=18] Aften", "[>=00] Øvrig"]}
+  label: ["🎫 Klokkeslætsinterval"], value: ["[≥ 18] Aften", "[≥ 00] Øvrig"]}
 )
 
 viewof k_køn = Inputs.checkbox(
@@ -118,6 +124,8 @@ data_filter = data_bi.filter(function(data_bi) {
 })
 ```
 
+::: {.grid style="text-align:center"}
+::: {.g-col-12 .g-col-md-6}
 ::: panel-tabset
 ## Tilmeldinger pr. år
 
@@ -148,7 +156,9 @@ Plot.plot({
 Inputs.table(data_filter)
 ```
 :::
+:::
 
+::: {.g-col-12 .g-col-md-6}
 ::: panel-tabset
 ## Deltagere
 
@@ -193,7 +203,9 @@ Inputs.table(data_filter, {
 })
 ```
 :::
+:::
 
+::: {.g-col-12 .g-col-md-6}
 ::: panel-tabset
 ## Gentilmeldinger
 
@@ -227,7 +239,9 @@ Plot.plot({
 Inputs.table(data_filter)
 ```
 :::
+:::
 
+::: {.g-col-12 .g-col-md-6}
 ::: panel-tabset
 ## Klubber
 
@@ -260,6 +274,8 @@ Plot.plot({
 ```{ojs}
 Inputs.table(data_filter)
 ```
+:::
+:::
 :::
 
 # Hørning 2023

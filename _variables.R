@@ -26,6 +26,7 @@ var_ikon <- data.frame(
   k_født        = "<iconify-icon icon=mdi:cake-variant></iconify-icon>",                       # var_ikon$k_født
   k_debutant    = "<iconify-icon icon=mdi:numeric-1-circle></iconify-icon>",                   # var_ikon$k_debutant
   k_gentagelse  = "<iconify-icon icon=mdi:autorenew></iconify-icon>",                          # var_ikon$k_gentagelse
+	k_nul         = "<iconify-icon icon=mdi:numeric-0-circle></iconify-icon>",                   # var_ikon$k_nul
   k_indbydelse  = "<iconify-icon icon=mdi:text-box-outline></iconify-icon>",                   # var_ikon$k_indbydelse
   k_timeglas    = "<iconify-icon icon=mdi:timer-sand></iconify-icon>",                         # var_ikon$k_timeglas
   k_regler      = "<iconify-icon icon=mdi:scale-balance></iconify-icon>",                      # var_ikon$k_regler

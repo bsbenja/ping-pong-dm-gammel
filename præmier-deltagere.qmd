@@ -46,6 +46,23 @@ cat(tbl0_status$k_tip_indbydelse_tilmelding)
 
 ## `r paste(var_ikon$k_pokal, "Præmier")`
 
+::: {.grid style="font-style:italic"}
+::: {.g-col-12 .g-col-md-8}
+[**NYHED**]{.underline}**! 2 kvalifikationspladser til [VERDENSMESTERSKABERNE I PING PONG]{.underline} i Mexico City fra den 4. til 6. januar 2024 med en præmiesum på [\$36.000]{.underline} fordelt på SANDPAPIR, HARDBAT og TRÆBAT. Ekstra tilskud hertil på \$500 til 1. pladsen fra DM. Ny arrangør for VM i Ping Pong er International Classic Table Tennis Federation (ICTTF), som erstatter det ellers tidligere velkendte format fra Alexandra Palace i London arrangeret af Matchroom. Se mere om det nye VM-koncept i indbydelsen `r paste0("[HER](Filer/Event/", tbl0_unik$k_eventår, "/Ping-Pong-World-Cup-indbydelse.pdf){target=_blank}")`**.
+
+-   Der er også en gave til den **yngste**- og **ældste** Ping Pong deltager for at hylde mangfoldigheden.
+-   Pokaler/diplomer uddeles til alle gave-/præmietagere.
+:::
+
+::: {.g-col-12 .g-col-md-4}
+```{r}
+#| output: asis
+cat(paste0(
+"![](Filer/Event/", tbl0_unik$k_eventår, "/Ping-Pong-World-Cup-logo.png){width=20em}"))
+```
+:::
+:::
+
 ```{r}
 #| layout="[[32, -2, 66]]"
 

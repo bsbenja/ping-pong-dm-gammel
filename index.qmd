@@ -15,6 +15,20 @@ editor_options:
 cat(tbl0_status$k_cta_plakat)
 ```
 
+::: {.grid style="font-style:italic"}
+::: {.g-col-12 .g-col-md-8}
+[**NYHED**]{.underline}**! 2 kvalifikationspladser til [VERDENSMESTERSKABERNE I PING PONG]{.underline} i Mexico City fra den 4. til 6. januar 2024 med en præmiesum på [\$36.000]{.underline} fordelt på SANDPAPIR, HARDBAT og TRÆBAT. Ekstra tilskud hertil på \$500 til 1. pladsen fra DM. Ny arrangør for VM i Ping Pong er International Classic Table Tennis Federation (ICTTF), som erstatter det ellers tidligere velkendte format fra Alexandra Palace i London arrangeret af Matchroom. Se mere om det nye VM-koncept i indbydelsen `r paste0("[HER](Filer/Event/", tbl0_unik$k_eventår, "/Ping-Pong-World-Cup-indbydelse.pdf){target=_blank}")`**.
+:::
+
+::: {.g-col-12 .g-col-md-4}
+```{r}
+#| output: asis
+cat(paste0(
+"![](Filer/Event/", tbl0_unik$k_eventår, "/Ping-Pong-World-Cup-logo.png){width=20em}"))
+```
+:::
+:::
+
 ::: callout-tip
 ## Sider
 
@@ -44,7 +58,7 @@ cat(tbl0_status$k_cta_plakat)
 
 -   `r paste(var_ikon$k_link_ny, "[<b>Matchroom Live</b>](https://matchroom.live/sports/ping_pong){target=_blank}<br><i>Tidligere videoer fra WCPP kan ses på Matchroom Live.</i><p>![](Filer/Generelt/Matchroom.png){width=4em}</p>")`
 
--   `r paste(var_ikon$k_link_ny, "[<b>World Ping Pong</b>](https://classichardbat.com/home){target=_blank}<br><i>Fællesskab for Ping Pong, hardbat og træbat med bl.a. events og rating inden for disse discipliner.</i><p>![](Filer/Generelt/World-Ping-Pong.png){width=4em}</p>")`
+-   `r paste(var_ikon$k_link_ny, "[<b>World Ping Pong</b>](https://classichardbat.com/home){target=_blank}<br><i>Fællesskab for Ping Pong, hardbat og træbat med bl.a. events og rating inden for disse discipliner.</i><p>![](Filer/Generelt/ICTTF.png){width=4em}</p>")`
 :::
 :::
 :::

@@ -443,23 +443,22 @@ cat(paste0(
 ### Præmier
 
 ::: {.grid style="font-style:italic"}
-::: {.g-col-12 .g-col-md-6}
-Resultaterne fra DM danner grundlag for international udtagelse. Normalvis er der 2 kvalifikationspladser til næstkommende World Championship of Ping Pong (WCPP), der sædvanligvis afholdes i London med en præmiesum på \$100.000 (dog er intet bekræftet endnu). Hvis der ikke er blevet afholdt WCPP inden næste DM, vil kvalifikationspladserne fra dette DM bortfalde. Kvalifikationspladserne vil dermed skulle findes på ny for næstkommende WCPP.
+::: {.g-col-12 .g-col-md-8}
+[**NYHED**]{.underline}**! 2 kvalifikationspladser til [VERDENSMESTERSKABERNE I PING PONG]{.underline} i Mexico City fra den 4. til 6. januar 2024 med en præmiesum på [\$36.000]{.underline} fordelt på SANDPAPIR, HARDBAT og TRÆBAT. Ekstra tilskud hertil på \$500 til 1. pladsen fra DM. Ny arrangør for VM i Ping Pong er International Classic Table Tennis Federation (ICTTF), som erstatter det ellers tidligere velkendte format fra Alexandra Palace i London arrangeret af Matchroom. Se mere om det nye VM-koncept i indbydelsen `r paste0("[HER](Filer/Event/", tbl0_unik$k_eventår, "/Ping-Pong-World-Cup-indbydelse.pdf){target=_blank}")`**.
 
 -   Der er også en gave til den **yngste**- og **ældste** Ping Pong deltager for at hylde mangfoldigheden.
 -   Pokaler/diplomer uddeles til alle gave-/præmietagere.
+:::
 
-::: {.callout-tip style="font-style:italic"}
-## WCPP
-
+::: {.g-col-12 .g-col-md-4}
 ```{r}
 #| output: asis
-cat(tbl0_status$k_tip_wcpp)
+cat(paste0(
+"![](Filer/Event/", var_indbydelse$k_eventår, "/Ping-Pong-World-Cup-logo.png){width=20em}"))
 ```
 :::
-:::
 
-::: {.g-col-12 .g-col-md-6}
+::: {.g-col-12 .g-col-md-12}
 ```{r}
 tbl1_præmier_penge <- tbl1_præmier_penge %>%
   filter(k_eventår == var_indbydelse$k_eventår)
@@ -524,7 +523,7 @@ if(nrow(tbl1_præmier_penge) == 0) {
 ::: {style="font-style:italic"}
 Traditionen tro vil der være fest om aftenen/natten, da DM i Ping Pong konceptet hylder fællesskabet og mangfoldigheden ved at være en heldagsbegivenhed.
 
-Fra kl. 19 vil der være stor fest! Flere detaljer kommer senere - Ikke desto mindre kan der ses frem til et brag af en fest, hvor det forventes, at der vil være mad, nogle valgfrie drikkevarer samt fælles bustransport ind til Aarhus C senere på aftenen inkluderet i prisen.
+Fra kl. 19 vil der være stor fest! Festen starter samme sted som turneringen afholdes, nemlig i Hørning Idrætscenter, hvor prisen inkluderer et klippekort til 5 øl eller sodavand, fællesspisning samt bus ind til Aarhus C. Senere på aftenen kommer der en bus ud til Hørning Idrætscenter, som kører alle de festlystne ind til Aarhus C, hvor festen fortsætter - Og mon ikke det bliver til den lyse morgen for de festglade.
 
 Aldersgrænsen for festen er 16 år (bytur 18 år). Hvis man er 16 eller 17 år, udleveres kun alkohol med en skriftlig tilladelse fra forældre/værge, som enten kan sendes til kontaktpersonen eller medbringes på selve dagen.
 :::
