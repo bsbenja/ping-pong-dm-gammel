@@ -1137,6 +1137,45 @@ kbl2_deltagere_andet <- tbl2_deltagere_andet %>%
 }
 kbl2_deltagere_andet
 
+#' ## Manglende klubber
+#+ eval=F, warning=F, message=F
+
+tbl2_klubber_mangler <- tbl0_join_alle %>%
+	anti_join(y = tbl0_join_aktuel, by = "k_klub") %>%
+	group_by(k_klub) %>%
+	slice(which.max(k_ordredato)) %>%
+	ungroup() %>%
+	arrange(k_status, desc(k_eventår), k_region, k_klub) %>%
+	group_by(k_status) %>%
+	mutate(Nr. = row_number()) %>%
+	ungroup() %>%
+	select(
+		Nr.,
+		" "      = k_logo_klub,
+		"Klub"   = k_klub,
+		"Region" = k_region,
+		"Sidst"  = k_eventår,
+		k_status)
+
+if(nrow(tbl2_klubber_mangler) == 0) {
+	kbl2_deltagere_mangler <- data.frame() %>% kbl()
+} else {
+	kbl2_klubber_mangler <- tbl2_klubber_mangler %>%
+		kbl(col.names = NA, align = "l", escape = F, table.attr = "data-quarto-disable-processing=true",
+				caption = paste0(
+					var_ikon$k_person, " <b>Manglende klubber</b>",
+					"<br>",
+					"<i style=font-size:80%>Sorteret efter år, region og klub</i>")) %>%
+		kable_classic(position = "l", full_width = F, html_font = "verdana") %>%
+		row_spec(0, background = tbl0_unik$k_farve_1, color = "#FFFFFF") %>%
+		row_spec(which(grepl("Afbud", tbl2_klubber_mangler$k_status)),
+						 strikeout = T, color = tbl0_unik$k_farve_1) %>%
+		column_spec(1, width_min = "2em") %>%
+		column_spec(1:5, extra_css = "border-top:0.7px solid #999999") %>%
+		remove_column(6)
+}
+kbl2_klubber_mangler
+
 #' ## Manglende deltagere
 #+ eval=F, warning=F, message=F
 
@@ -1165,7 +1204,7 @@ if(nrow(tbl2_deltagere_mangler) == 0) {
 kbl2_deltagere_mangler <- tbl2_deltagere_mangler %>%
 	kbl(col.names = NA, align = "l", escape = F, table.attr = "data-quarto-disable-processing=true",
 			caption = paste0(
-				var_ikon$k_person, " <b>Manglende deltagere fra før ", tbl0_unik$k_eventår, "</b>",
+				var_ikon$k_person, " <b>Manglende deltagere</b>",
 				"<br>",
 				"<i style=font-size:80%>Sorteret efter klubantal og år</i>")) %>%
 	kable_classic(position = "l", full_width = F, html_font = "verdana") %>%

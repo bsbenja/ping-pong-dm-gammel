@@ -62,8 +62,9 @@ website:
           &nbsp;<a href=https://www.sport-live.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/TV.png style=height:24px></a>
           &nbsp;<a href=https://rema1000.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-1.png style=height:24px></a>
           &nbsp;<a href=https://www.gfforsikring.dk/gfaarhus target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-2.png style=height:24px></a>
-          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-3.png style=height:24px></a>
-          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:24px></a>
+          &nbsp;<a href=https://supervisionalarm.dk/ target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-3.png style=height:24px></a>
+          &nbsp;<a href=https://installsound.dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-4.png style=height:24px></a>
+          &nbsp;<a href=https://www.dsv.com/da-dk target=_blank><img src=Filer/Event/{{< var var.event_år >}}/Sponsor-5.png style=height:24px></a>
           &nbsp;<a href={{< var var.facebook_event_url >}} target=_blank><span class=bi-facebook style=color:#1877F2;font-size:18px></span></a>
           &nbsp;<a href=https://m.me/{{< var var.facebook_side_id >}} target=_blank><span class=bi-messenger style=color:#0695FF;font-size:18px></span></a>
           &nbsp;<a href=https://github.com/bsbenja/ping-pong-dm target=_blank><span class=bi-github style=color:#9F7BE1;font-size:18px></span></a>

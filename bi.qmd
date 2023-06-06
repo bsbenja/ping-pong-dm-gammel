@@ -33,6 +33,7 @@ graf4_år
 ```{r}
 kbl2_deltagere_puljer
 kbl2_deltagere_andet
+kbl2_klubber_mangler
 kbl2_deltagere_mangler
 ```
 
