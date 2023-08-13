@@ -1,0 +1,357 @@
+```{r}
+source(file = "ping-pong-dm-input.R", local = knitr::knit_global())
+```
+
+---
+title: "<iconify-icon icon=mdi:autorenew></iconify-icon> <u>Præmier & deltagere</u>"
+subtitle: |
+  `r paste0(
+  "<b style=font-size:140%>", tbl0_unik$k_event_ping_pong_år, "</b>",
+  "<br>",
+  "<i style=font-size:110%>",
+  "<b>", str_to_sentence(trimws(format(tbl0_unik$k_eventdato, "%A %e. %B"))), " i ",
+  "[", tbl0_unik$k_eventsted, "](", tbl0_unik$k_eventsted_url, "){target=_blank}",
+  "</b></i>",
+  "<br>",
+  "<i style=font-size:80%>Først til mølle-princip ∙ Tilmeldingsfrist ",
+  trimws(format(tbl0_unik$k_tilmeldingsfrist, "%e. %B")), "</i>")`
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+#| output: asis
+cat(tbl0_status$k_cta_plakat)
+```
+
+::: {.callout-note style="font-style:italic"}
+## Sideinfo
+
+```{r}
+#| output: asis
+cat(paste(var_ikon$k_gentagelse, "Præmier og deltagere opdateres løbende for", tbl0_unik$k_event_ping_pong_år, "og er sidst opdateret", format(floor_date(Sys.time(), "30 minutes"), "%d.%m.%Y kl. %H:%M.")))
+```
+:::
+
+::: {.callout-tip style="font-style:italic"}
+## Tip
+
+```{r}
+#| output: asis
+cat(tbl0_status$k_tip_indbydelse_tilmelding)
+```
+:::
+
+## `r paste(var_ikon$k_pokal, "Præmier")`
+
+```{r}
+#| layout="[[32, -2, 66]]"
+
+# Præmiepenge
+tbl1_præmier_penge <- tbl1_præmier_penge %>%
+  filter(k_eventår == tbl0_unik$k_eventår)
+
+if(nrow(tbl1_præmier_penge) == 0) {
+  data.frame() %>% kbl()
+
+} else if (tbl0_unik$k_præmiepenge_sponseret == F) {
+  tbl1_præmier_penge %>%
+    select(
+      " "         = k_placering,
+      "Aktuel"    = k_aktuel_præmiepenge,
+      "Potentiel" = k_præmiepenge,
+      "Pct."      = k_præmiepenge_pct,
+      "k_rank"    = k_rank) %>%
+    kbl(col.names = NA, align = "lrrr", escape = F, table.attr = "data-quarto-disable-processing=true",
+        caption = paste(
+          "<i style=font-size:90%>", var_ikon$k_penge, "<b>Præmiepenge</b> (afrundet)</i>")) %>%
+    kable_classic(position = "l", full_width = F, html_font = "verdana") %>%
+    row_spec(0, background = tbl0_unik$k_farve_1, color = "#FFFFFF") %>%
+    add_indent(which(tbl1_præmier_penge$k_rank == "3")) %>%
+    row_spec(which(tbl1_præmier_penge$k_rank == "1"),
+             bold = T, background = tbl0_unik$k_farve_2) %>%
+    row_spec(which(tbl1_præmier_penge$k_rank == "2"),
+             background = tbl0_unik$k_farve_2) %>%
+    column_spec(c(3, 4), italic = T, color = tbl0_unik$k_farve_1) %>%
+    footnote(paste0(
+      "<i style=font-size:80%>Aktuel = ",
+      tbl0_statistik$k_int_billetantal_ping_pong, " ",
+      ifelse(tbl0_statistik$k_int_billetantal_ping_pong == 1, "tilmelding", "tilmeldinger"), " x kr. ",
+      tbl0_statistik$k_num_præmiepenge_pr_deltager, " (maks. ",
+      tbl0_statistik$k_int_billetantal_ping_pong_maks, " ",
+      ifelse(tbl0_statistik$k_int_billetantal_ping_pong_maks == 1, "tilmelding", "tilmeldinger"), ").",
+      "<br>",
+      "Diplomer uddeles til alle gave-/præmietagere.</i>"),
+      general_title = "", escape = F) %>%
+    remove_column(5) %>%
+    gsub("\\{\\{&lt;|&lt;", "{{<", .) %>% gsub("&gt;}}", ">}}", .)
+  
+} else if (tbl0_unik$k_præmiepenge_sponseret == T) {
+  tbl1_præmier_penge %>%
+    select(
+      " "           = k_placering,
+      "Præmiepenge" = k_præmiepenge,
+      "Pct."        = k_præmiepenge_pct,
+      "k_rank"      = k_rank) %>%
+    kbl(col.names = NA, align = "lrr", escape = F, table.attr = "data-quarto-disable-processing=true",
+        caption = paste(
+          "<i style=font-size:90%>", var_ikon$k_penge, "<b>Præmiepenge</b></i>")) %>%
+    kable_classic(position = "l", full_width = F, html_font = "verdana") %>%
+    row_spec(0, background = tbl0_unik$k_farve_1, color = "#FFFFFF") %>%
+    add_indent(which(tbl1_præmier_penge$k_rank == "3")) %>%
+    row_spec(which(tbl1_præmier_penge$k_rank == "1"),
+             bold = T, background = tbl0_unik$k_farve_2) %>%
+    row_spec(which(tbl1_præmier_penge$k_rank == "2"),
+             background = tbl0_unik$k_farve_2) %>%
+    column_spec(3, italic = T, color = tbl0_unik$k_farve_1) %>%
+    footnote(paste(
+      "<i style=font-size:80%>Præmiesum på", distinct(filter(tbl1_præmier_penge, k_rank == 1), k_præmiepenge), "er under<br>forudsætning af minimum 64 Ping Pong<br>deltagere.</i>"),
+      general_title = "", escape = F) %>%
+    remove_column(4) %>%
+    gsub("\\{\\{&lt;|&lt;", "{{<", .) %>% gsub("&gt;}}", ">}}", .)
+}
+
+# Gave til yngste- og ældste Ping Pong deltager
+kbl1_præmier_yngst_ældst
+```
+
+## `r paste(var_ikon$k_person, "Deltagere")`
+
+::: {.callout-note icon="false"}
+## `r paste0(var_ikon$k_billet, "&nbsp;Tilmeldinger", "^[<i><b>Tilmeldinger</b>: Tilmeldinger opgøres efter antal tilmeldinger til eventet fordelt på:<br>", str_c(sort(unique(paste(sub(".*? ", "", ifelse(grepl("Ping Pong", tbl0_join_aktuel$k_billettype), paste(tbl0_join_aktuel$k_billettype, tbl0_unik$k_eventår), as.character(tbl0_join_aktuel$k_billettype))), tbl0_join_aktuel$k_ikon_billettype))), collapse = "<br>"), "</i>]")`
+
+```{r}
+#| output: asis
+cat(paste0(tbl0_statistik$k_billetantal_billettype))
+```
+:::
+
+```{r}
+if(tbl0_input$k_status_1_2_3_4 == 3) { kbl2_deltagere_foreløbig }
+
+if(tbl0_input$k_status_1_2_3_4 == 1 | tbl0_input$k_status_1_2_3_4 == 2 | tbl0_input$k_status_1_2_3_4 == 4) { kbl2_deltagere_puljer }
+
+if(tbl0_input$k_status_1_2_3_4 == 1 | tbl0_input$k_status_1_2_3_4 == 2 | tbl0_input$k_status_1_2_3_4 == 4) { kbl2_deltagere_andet }
+```
+
+## `r paste(var_ikon$k_graf, "Dashboards")`
+
+::: {.grid style="text-align:center"}
+::: {.g-col-12 .g-col-md-6}
+::: panel-tabset
+## Graf
+
+```{r}
+#| output: asis
+cat(paste0("<h5 style=font-weight:bold>Klubber</h5>"))
+```
+
+```{r}
+#| fig-height: !expr (as.numeric(tbl0_join_aktuel %>% filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>% summarise(length(unique(k_klub))))+1.5)/3.3
+graf4_klubber
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_klub, "</b>",
+"&nbsp;^[<i><b>Deltagere klub</b>: Deltagere klub opgøres efter antal tilmeldte deltagere til eventet fordelt på <q>klub</q>, <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf.</i>]",
+"</i>",
+
+"<br>",
+
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_klubantal, "</b>",
+"&nbsp;^[<i><b>Forskellige klubber</b>: Forskellige klubber opgøres efter antal tilmeldte bordtennisklubber eksklusiv <q>ingen klub</q> og <q>udlandet</q> til eventet.</i>]",
+"</i>"))
+```
+
+## Tabel
+
+```{r}
+kbl4_klubber
+```
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: panel-tabset
+## Graf
+
+```{r}
+#| output: asis
+cat(paste0("<h5 style=font-weight:bold>Danmarkskort</h5>"))
+```
+
+```{r}
+#| fig-height: 5
+graf4_DK
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>Deltagere landsdel</b>:&nbsp;", tbl0_statistik$k_deltagerantal_landsdel,
+"&nbsp;^[<i><b>Deltagere landsdel</b>: Deltagere landsdel opgøres efter antal tilmeldte deltagere til eventet fordelt på Jylland, Fyn, Sjælland og Bornholm eksklusiv <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf. Landsdel tager udgangspunkt i bordtennisklubbens belligenhed.</i>]",
+"</i>",
+
+"<br>",
+
+"<i style=font-size:70%>",
+"<b>Deltagere region</b>:&nbsp;", tbl0_statistik$k_deltagerantal_region,
+"&nbsp;^[<i><b>Deltagere region</b>: Deltagere region opgøres efter antal tilmeldte deltagere til eventet fordelt på Nordjylland, Midtjylland, Syddanmark, Sjælland og Hovedstaden eksklusiv <q>ingen klub</q> og <q>udlandet</q>. Procentsatserne viser fordelingen heraf. Region tager udgangspunkt i bordtennisklubbens belligenhed.</i>]",
+"</i>"))
+```
+
+## Tabel
+
+```{r}
+kbl4_DK
+```
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: panel-tabset
+## Graf
+
+```{r}
+#| output: asis
+cat(paste0("<h5 style=font-weight:bold>Aldersgrupper</h5>"))
+```
+
+```{r}
+#| fig-height: !expr (as.numeric(tbl0_join_aktuel %>% filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>% summarise(length(unique(k_aldersgruppe))))+1.5)/3.3
+graf4_aldersgruppe
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_aldersgruppe, "</b>",
+"&nbsp;^[<i><b>Deltagere aldersgruppe</b>: Deltagere aldersgruppe opgøres efter antal tilmeldte deltagere til eventet fordelt på ungdom (≤ 17 år), senior (≤ 39 år) og veteran (≥ 40 år). Procentsatserne viser fordelingen heraf. Alder tager udgangspunkt i fødselsdato og eventdatoen ", format(tbl0_unik$k_eventdato, "%d.%m.%Y"), " (ikke dags dato).</i>]",
+"</i>",
+
+"<br>",
+
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_alder, "</b>",
+"&nbsp;^[<i><b>Alder</b>: Alder opgøres efter hhv. yngst, gennemsnitlig alder og ældst i forhold til tilmeldte deltagere til eventet. Alder tager udgangspunkt i fødselsdato og eventdatoen ", format(tbl0_unik$k_eventdato, "%d.%m.%Y"), " (ikke dags dato).</i>]",
+"</i>"))
+```
+
+## Tabel
+
+```{r}
+kbl4_aldersgruppe
+```
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: panel-tabset
+## Graf
+
+```{r}
+#| output: asis
+cat(paste0("<h5 style=font-weight:bold>Køn</h5>"))
+```
+
+```{r}
+#| fig-height: !expr (as.numeric(tbl0_join_aktuel %>% filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>% summarise(length(unique(k_køn))))+1.5)/3.3
+graf4_køn
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_køn, "</b>",
+"&nbsp;^[<i><b>Deltagere køn</b>: Deltagere køn opgøres efter antal tilmeldte deltagere til eventet fordelt på herre og dame. Procentsatserne viser fordelingen heraf.</i>]",
+"</i>"))
+```
+
+## Tabel
+
+```{r}
+kbl4_køn
+```
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: panel-tabset
+## Graf
+
+```{r}
+#| output: asis
+cat(paste0("<h5 style=font-weight:bold>Gentilmeldinger</h5>"))
+```
+
+```{r}
+#| fig-height: !expr (as.numeric(tbl0_join_aktuel %>% filter(!is.na(k_deltager_id) & grepl("Tilmeldt", k_status)) %>% summarise(length(unique(k_gentilmelding))))+1.5)/3.3
+graf4_gentilmelding
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_gentilmelding, "</b>",
+"&nbsp;^[<i><b>Deltagere gentilmelding</b>: Deltagere gentilmelding opgøres efter antal tilmeldte deltagere til eventet fordelt på <q>gentilmelding</q> og <q>debutant</q>. Procentsatserne viser fordelingen heraf. Gentilmelding defineres som en, der tidligere har valgt samme billetype, og debutant defineres som en, der har valgt en billettype for første gang. Ved både gentilmelding og debutant tælles dette kun som gentilmelding. Opgørelsen gælder fra og med ", distinct(filter(tbl0_join_alle, k_2021_eller_senere == tbl0_unik$k_2021_eller_senere), min(k_eventår)), ".</i>]",
+"</i>"))
+```
+
+## Tabel
+
+```{r}
+kbl4_gentilmelding
+```
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: panel-tabset
+## Graf
+
+```{r}
+#| output: asis
+cat(paste0("<h5 style=font-weight:bold>Deltagere</h5>"))
+```
+
+```{r}
+#| fig-height: !expr (as.numeric(tbl0_join_aktuel %>% filter(!is.na(k_deltager_id)) %>% summarise(length(unique(k_tilmeldingstype))))+1.5)/3.3
+graf4_tilmeldingstype
+```
+
+```{r}
+#| output: asis
+cat(paste0(
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_deltagerantal_total, "</b>",
+"&nbsp;^[<i><b>Deltagere total</b>: Deltagere total opgøres efter antal tilmeldte deltagere og <q>totalafbud</q> til eventet. Procentsatserne viser fordelingen heraf. Ved <q>totalafbud</q> forstås deltagere, der har meldt afbud til hele eventet.</i>]",
+"</i>",
+
+"<br>",
+
+"<i style=font-size:70%>",
+"<b>", tbl0_statistik$k_billetantal_gns, "</b>",
+"&nbsp;^[<i><b>Billetter pr. deltager</b>: Billetter pr. deltager er et gennemsnit, som opgøres efter antal tilmeldinger (billetantal) divideret med tilmeldte deltagere til eventet.</i>]",
+"</i>"))
+```
+
+## Tabel
+
+```{r}
+kbl4_tilmeldingstype
+```
+:::
+:::
+:::
+
+```{r}
+kbl3_resultater_sidste_dm
+```

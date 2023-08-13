@@ -9,7 +9,7 @@ project:
     - "*.qmd"
     - "index.qmd" # "!index.qmd"
     - "indbydelse-tilmelding.qmd" # "!indbydelse-tilmelding.qmd"
-    - "præmier-deltagere.qmd" # "!præmier-deltagere.qmd"
+    - "praemier-deltagere.qmd" # "!praemier-deltagere.qmd"
     - "regler.qmd" # "!regler.qmd"
     - "wcpp.qmd" # "!wcpp.qmd"
     - "koncept.qmd" # "!koncept.qmd"
@@ -31,11 +31,11 @@ website:
     border: true
     contents:
       - href: "index.qmd"
-      - text: "---"
-      - section: "<b>DM i Ping Pong 2023</b>"
-        contents:
-        - href: "indbydelse-tilmelding.qmd"
-        - href: "præmier-deltagere.qmd"
+      # - text: "---"
+      # - section: "<b>DM i Ping Pong 2023</b>"
+        # contents:
+        # - href: "indbydelse-tilmelding.qmd"
+        # - href: "praemier-deltagere.qmd"
       - text: "---"
       - section: "<b>Generelt om Ping Pong</b>"
         contents:

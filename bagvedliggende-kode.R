@@ -800,7 +800,7 @@ tbl0_status <- data.frame(
   k_forside_dm = if(tbl0_input$k_status_1_2_3_4 == 1) {
     paste(
       "<i>Nærmere information om DM i Ping Pong",
-      unique(max(tbl0_join_aktuel$k_eventår)), "følger.</i>")
+      unique(max(tbl0_join_alle$k_eventår)), "følger.</i>")
   } else if(tbl0_input$k_status_1_2_3_4 == 2) {
     paste0(
       "<i>", tbl0_unik$k_event_ping_pong_år, " afholdes ",
@@ -824,7 +824,7 @@ tbl0_status <- data.frame(
       "<br>",
       "<i>Indbydelse, tidsplan, praktisk info samt tilmelding/betaling",
       "&nbsp;til ", tbl0_unik$k_event_ping_pong_år, ".</i></p></li>",
-      "<li><p>", var_ikon$k_gentagelse, " ", "[<b>Præmier & deltagere</b>](præmier-deltagere.qmd)",
+      "<li><p>", var_ikon$k_gentagelse, " ", "[<b>Præmier & deltagere</b>](praemier-deltagere.qmd)",
       "<br>",
       "<i>Præmier og deltagere opdateres løbende",
       "&nbsp;til ", tbl0_unik$k_event_ping_pong_år, ".</i></p>",
@@ -862,7 +862,7 @@ tbl0_status <- data.frame(
   k_tip_præmier_deltagere = paste0(
       "<p>",
       var_ikon$k_gentagelse, " Præmier og deltagere opdateres løbende til ",
-      tbl0_unik$k_event_ping_pong_år, " [<b>HER</b>](præmier-deltagere.qmd).",
+      tbl0_unik$k_event_ping_pong_år, " [<b>HER</b>](praemier-deltagere.qmd).",
       "</p>",
       "<i style=font-size:80%;display:inline-block;border:0.6px;border-style:solid;padding:5px>",
       tbl0_statistik$k_billetantal_billettype, "</i>"),
@@ -1796,8 +1796,8 @@ if(tbl0_input$k_eventordre_T_F == T) {
   View(tbl5_eventordre)
   shell.exec(normalizePath(tbl0_input$k_data))
   browseURL("https://pingpong.quarto.pub/dm/pr%C3%A6mier_deltagere.html")
-  browseURL("https://bordtennisportalen.dk/DBTU/Ranglister")
   browseURL(paste0("https://billetfix.dk/da/dashboard/", tbl0_unik$k_uuid, "/orders"))
+  browseURL("https://bordtennisportalen.dk/DBTU/Ranglister")
   cat(paste0(
     tbl5_eventordre %>%
       filter(grepl("PAID", k_status)) %>%
